@@ -1,4 +1,4 @@
-This script could be used for copying zarr arrays to .zarr format with OME-NGFF multiscales metadata structure.
+This script could be used for rescaling of data stored in zarr arrays using Dask for parallelization on a LSF cluster/local machine. 
 #### How to run
 1. open command line terminal
 2. install poetry tool for dependency management and packaging: https://pypi.org/project/poetry/
@@ -7,4 +7,4 @@ This script could be used for copying zarr arrays to .zarr format with OME-NGFF 
 4. install python dependencies:
     ``poetry install``
 5. run script using cli:
-    ``poetry run python chunk_by_chunk_copy.py "PATH_TO_SOURCE_DIRECTORY/input_file.zarr" "PATH_TO_DEST_DIRECTORY/output_file.zarr"``
+    ``poetry run python src/normalize.py --src="PATH_TO_SOURCE_DIRECTORY/input_file.zarr" --dest="PATH_TO_DEST_DIRECTORY/output_file.zarr" --global_min=188 --global_max=214  --workers=400 --data_type=uint8'``
