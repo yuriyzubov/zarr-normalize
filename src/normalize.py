@@ -98,7 +98,17 @@ def copy_arrays(z_src: zarr.Group | zarr.core.Array,
 @click.option("--workers", '-w', default=100, type=click.INT, help='Number of dask scheduler workers')
 @click.option('--scheduler', '-s', default = "lsf", type=click.STRING)
 @click.option('--data_type', '-dt', default = "", type=click.STRING)
-def cli(src, dest, global_min, global_max, workers, scheduler, data_type):
+@click.option('--log_dir', '-ld', default = None, type=click.STRING,
+    help="The path of the parent directory for all LSF worker logs.  Omit if you want worker logs to be emailed to you.")
+def cli(src,
+        dest,
+        global_min,
+        global_max,
+        workers,
+        scheduler,
+        data_type,
+        log_dir
+        ):
     
     
     if dest=='':
@@ -122,7 +132,8 @@ def cli(src, dest, global_min, global_max, workers, scheduler, data_type):
             ncpus=num_cores,
             mem=15 * num_cores,
             walltime="48:00",
-            local_directory = "/scratch/$USER/"
+            local_directory = "/scratch/$USER/",
+            log_directory=log_dir
             )
     elif scheduler == "local":
             cluster = LocalCluster()
